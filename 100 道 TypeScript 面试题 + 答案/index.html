@@ -1,0 +1,271 @@
+<!DOCTYPE html><meta charset="utf-8"><h1 id="100-道-typescript-面试题--答案">100 道 TypeScript 面试题 + 答案</h1>
+<h2 id="第一部分基础题1-30">第一部分：基础题（1-30）</h2>
+<h3 id="1-typescript-是什么它与-javascript-的关系">1. TypeScript 是什么？它与 JavaScript 的关系？（★）</h3>
+<p><strong>答案：</strong> TypeScript 是 Microsoft 开发的 JavaScript 超集，添加了静态类型系统、接口、泛型等特性。编译后生成纯 JavaScript，可运行在任何 JS 环境。</p>
+<blockquote>
+<p><strong>解析：</strong> TS 解决了 JS 的类型不安全问题，减少运行时错误 70%+。</p>
+</blockquote>
+<h3 id="2-如何安装-typescript">2. 如何安装 TypeScript？（★）</h3>
+<p><strong>答案：</strong> <code>npm install -g typescript</code>（全局），或 <code>npm install --save-dev typescript</code>（项目）。用 <code>npx tsc --init</code> 生成 <code>tsconfig.json</code>。</p>
+<blockquote>
+<p><strong>解析：</strong> 2025 年推荐项目级安装，避免版本冲突。</p>
+</blockquote>
+<h3 id="3-什么是基本类型举例-numberstringboolean">3. 什么是基本类型？举例 number、string、boolean。（★）</h3>
+<p><strong>答案：</strong> TS 的基本类型包括 number、string、boolean 等。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> age</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 30</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> "Alice"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> isActive</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> boolean</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="4-数组类型如何声明">4. 数组类型如何声明？（★）</h3>
+<p><strong>答案：</strong> <code>number[]</code> 或 <code>Array&#x3C;number></code>。</p>
+<blockquote>
+<p><strong>解析：</strong> <code>number[]</code> 更简洁，<code>Array</code> 泛型更灵活。</p>
+</blockquote>
+<h3 id="5-元组tuple是什么">5. 元组（Tuple）是什么？（★）</h3>
+<p><strong>答案：</strong> 固定长度、固定类型的数组。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> tuple</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">number</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"hello"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">];</span></span></code></pre>
+<h3 id="6-枚举enum的作用">6. 枚举（Enum）的作用？（★）</h3>
+<p><strong>答案：</strong> 定义一组命名常量。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">enum</span><span style="color:#B392F0"> Color</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">Red</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">Green</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">Blue</span><span style="color:#E1E4E8"> } </span><span style="color:#6A737D">// 默认 0,1,2</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> c</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Color</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Color.Green; </span><span style="color:#6A737D">// 1</span></span></code></pre>
+<h3 id="7-any-类型与-unknown-的区别">7. any 类型与 unknown 的区别？（★）</h3>
+<p><strong>答案：</strong> <code>any</code> 允许任意操作；<code>unknown</code> 更安全，必须先类型缩小（如 <code>typeof</code> 检查）。推荐 <code>unknown</code>。</p>
+<blockquote>
+<p><strong>解析：</strong> <code>any</code> 绕过类型检查，易引入 bug。</p>
+</blockquote>
+<h3 id="8-never-类型何时用">8. never 类型何时用？（★）</h3>
+<p><strong>答案：</strong> 表示永不返回的函数，如抛错。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> fail</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Error</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Error"</span><span style="color:#E1E4E8">); }</span></span></code></pre>
+<h3 id="9-void-类型是什么">9. void 类型是什么？（★）</h3>
+<p><strong>答案：</strong> 表示无返回值。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> log</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8"> { console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"hi"</span><span style="color:#E1E4E8">); }</span></span></code></pre>
+<h3 id="10-null-与-undefined-的类型">10. null 与 undefined 的类型？（★）</h3>
+<p><strong>答案：</strong> 可显式声明 <code>let n: null = null;</code>。在 <code>strictNullChecks</code> 下，不能赋值给其他类型。</p>
+<h3 id="11-symbol-类型的作用">11. Symbol 类型的作用？（★）</h3>
+<p><strong>答案：</strong> 创建唯一标识符，避免属性名冲突。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> sym</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Symbol</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"key"</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="12-object-类型如何声明">12. Object 类型如何声明？（★）</h3>
+<p><strong>答案：</strong> <code>let obj: object = {};</code> 或具体接口 <code>{ name: string; }</code>。</p>
+<h3 id="13-bigint-类型">13. bigint 类型？（★）</h3>
+<p><strong>答案：</strong> 大整数。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> big</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> bigint</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 100</span><span style="color:#F97583">n</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="14-联合类型union">14. 联合类型（Union）？（★）</h3>
+<p><strong>答案：</strong> <code>string | number</code>。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> number</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> "abc"</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="15-类型断言type-assertion">15. 类型断言（Type Assertion）？（★）</h3>
+<p><strong>答案：</strong> <code>as</code> 关键字强制类型。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> value </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "123"</span><span style="color:#F97583"> as</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// 编译时转为 number</span></span></code></pre>
+<blockquote>
+<p><strong>解析：</strong> 用 <code>&#x3C;number>"123"</code> 也行，但 JSX 中有冲突。</p>
+</blockquote>
+<h3 id="16-接口interface基础">16. 接口（Interface）基础？（★）</h3>
+<p><strong>答案：</strong> 定义对象形状。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Person</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">age</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">; }</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> p</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Person</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { name: </span><span style="color:#9ECBFF">"Bob"</span><span style="color:#E1E4E8">, age: </span><span style="color:#79B8FF">25</span><span style="color:#E1E4E8"> };</span></span></code></pre>
+<h3 id="17-可选属性">17. 可选属性（?）？（★）</h3>
+<p><strong>答案：</strong> <code>age?: number;</code> 表示可选。</p>
+<h3 id="18-只读属性readonly">18. 只读属性（readonly）？（★）</h3>
+<p><strong>答案：</strong> <code>readonly id: number;</code> 不可修改。</p>
+<h3 id="19-索引签名">19. 索引签名？（★）</h3>
+<p><strong>答案：</strong> <code>[key: string]: any;</code> 允许动态属性。</p>
+<h3 id="20-函数类型声明">20. 函数类型声明？（★）</h3>
+<p><strong>答案：</strong> <code>(x: number) => string</code>。</p>
+<h3 id="21-函数参数默认值">21. 函数参数默认值？（★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> greet</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">name</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> "World"</span><span style="color:#E1E4E8">) {}</span></span></code></pre>
+<h3 id="22-可选参数">22. 可选参数？（★）</h3>
+<p><strong>答案：</strong> <code>lastName?: string</code>。</p>
+<h3 id="23-函数重载">23. 函数重载？（★）</h3>
+<p><strong>答案：</strong> 多签名同一函数。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> add</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">a</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">b</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> add</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">a</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">b</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="24-类型别名type-alias">24. 类型别名（Type Alias）？（★）</h3>
+<p><strong>答案：</strong> <code>type ID = string | number;</code></p>
+<h3 id="25-interface-与-type-的区别">25. interface 与 type 的区别？（★）</h3>
+<p><strong>答案：</strong> <code>interface</code> 适合对象、可扩展；<code>type</code> 更灵活（联合、元组）。<code>interface</code> 可合并声明。</p>
+<h3 id="26-交叉类型intersection">26. 交叉类型（Intersection）？（★）</h3>
+<p><strong>答案：</strong> <code>TypeA &#x26; TypeB</code> 合并属性。</p>
+<h3 id="27-字面量类型">27. 字面量类型？（★）</h3>
+<p><strong>答案：</strong> <code>"success" | "error"</code> 限制具体值。</p>
+<h3 id="28-类型保护type-guard">28. 类型保护（Type Guard）？（★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> isString</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">x</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#FFAB70"> x</span><span style="color:#F97583"> is</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">return</span><span style="color:#F97583"> typeof</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> "string"</span><span style="color:#E1E4E8">; }</span></span></code></pre>
+<h3 id="29-非空断言">29. 非空断言（!）？（★）</h3>
+<p><strong>答案：</strong> <code>element!.innerHTML</code> 告诉 TS 非 null。</p>
+<h3 id="30-严格模式strict的作用">30. 严格模式（strict）的作用？（★）</h3>
+<p><strong>答案：</strong> <code>tsconfig.json</code> 中开启，强制类型安全。</p>
+<hr>
+<h2 id="第二部分中级题31-60">第二部分：中级题（31-60）</h2>
+<h3 id="31-泛型generics基础">31. 泛型（Generics）基础？（★★）</h3>
+<p><strong>答案：</strong> 参数化类型。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> identity</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">>(</span><span style="color:#FFAB70">arg</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">return</span><span style="color:#E1E4E8"> arg; }</span></span></code></pre>
+<h3 id="32-泛型约束extends">32. 泛型约束（extends）？（★★）</h3>
+<p><strong>答案：</strong> <code>T extends { length: number }</code> 限制 T 有 length。</p>
+<h3 id="33-泛型接口">33. 泛型接口？（★★）</h3>
+<p><strong>答案：</strong> <code>interface Box&#x3C;T> { value: T; }</code></p>
+<h3 id="34-泛型类">34. 泛型类？（★★）</h3>
+<p><strong>答案：</strong> <code>class Stack&#x3C;T> { push(item: T) {} }</code></p>
+<h3 id="35-partial-工具类型">35. Partial<t> 工具类型？（★★）</t></h3>
+<p><strong>答案：</strong> 所有属性变可选。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">Partial</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">: string}</span><span style="color:#F97583">></span><span style="color:#6A737D"> // { a?: string }</span></span></code></pre>
+<h3 id="36-required">36. Required<t>？（★★）</t></h3>
+<p><strong>答案：</strong> 所有属性变必选。</p>
+<h3 id="37-readonly">37. Readonly<t>？（★★）</t></h3>
+<p><strong>答案：</strong> 所有属性变只读。</p>
+<h3 id="38-pickt-k">38. Pick&#x3C;T, K>？（★★）</h3>
+<p><strong>答案：</strong> 挑选属性。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">Pick</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">,</span><span style="color:#B392F0">b</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">}, </span><span style="color:#9ECBFF">'a'</span><span style="color:#F97583">></span><span style="color:#6A737D"> // {a:1}</span></span></code></pre>
+<h3 id="39-omitt-k">39. Omit&#x3C;T, K>？（★★）</h3>
+<p><strong>答案：</strong> 删除属性。</p>
+<h3 id="40-recordk-t">40. Record&#x3C;K, T>？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">Record</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">string, number</span><span style="color:#F97583">></span><span style="color:#6A737D"> // { [key: string]: number }</span></span></code></pre>
+<h3 id="41-excludet-u">41. Exclude&#x3C;T, U>？（★★）</h3>
+<p><strong>答案：</strong> 从 T 排除 U 的类型。</p>
+<h3 id="42-extractt-u">42. Extract&#x3C;T, U>？（★★）</h3>
+<p><strong>答案：</strong> 从 T 提取 U 的类型。</p>
+<h3 id="43-nonnullable">43. NonNullable<t>？（★★）</t></h3>
+<p><strong>答案：</strong> 排除 null/undefined。</p>
+<h3 id="44-parameters">44. Parameters<t>？（★★）</t></h3>
+<p><strong>答案：</strong> 函数参数元组类型。</p>
+<h3 id="45-returntype">45. ReturnType<t>？（★★）</t></h3>
+<p><strong>答案：</strong> 函数返回值类型。</p>
+<h3 id="46-instancetype">46. InstanceType<t>？（★★）</t></h3>
+<p><strong>答案：</strong> 构造函数实例类型。</p>
+<h3 id="47-条件类型基础">47. 条件类型基础？（★★）</h3>
+<p><strong>答案：</strong> <code>T extends U ? X : Y</code></p>
+<h3 id="48-infer-关键字">48. infer 关键字？（★★）</h3>
+<p><strong>答案：</strong> 推断类型。</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> ReturnType</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#B392F0"> T</span><span style="color:#F97583"> extends</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">...</span><span style="color:#FFAB70">args</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#F97583"> infer</span><span style="color:#B392F0"> R</span><span style="color:#F97583"> ?</span><span style="color:#B392F0"> R</span><span style="color:#F97583"> :</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="49-分布式条件类型">49. 分布式条件类型？（★★）</h3>
+<p><strong>答案：</strong> 联合类型自动分布，如 <code>T[number]</code>。</p>
+<h3 id="50-mapped-types">50. Mapped Types？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">{ [</span><span style="color:#79B8FF">P</span><span style="color:#F97583"> in</span><span style="color:#E1E4E8"> keyof </span><span style="color:#79B8FF">T</span><span style="color:#E1E4E8">]: </span><span style="color:#79B8FF">T</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">P</span><span style="color:#E1E4E8">] }</span></span></code></pre>
+<h3 id="51-模块系统importexport">51. 模块系统（import/export）？（★★）</h3>
+<p><strong>答案：</strong> ES6 风格，TS 支持 CommonJS/ESNext。</p>
+<h3 id="52-命名空间namespace">52. 命名空间（Namespace）？（★★）</h3>
+<p><strong>答案：</strong> 组织代码，避免全局污染。已少用，推荐模块。</p>
+<h3 id="53-装饰器decorator">53. 装饰器（Decorator）？（★★）</h3>
+<p><strong>答案：</strong> 元编程，<code>@sealed</code> 等。需启用 <code>experimentalDecorators</code>。</p>
+<h3 id="54-类装饰器">54. 类装饰器？（★★）</h3>
+<p><strong>答案：</strong> <code>function sealed(constructor: Function) {}</code></p>
+<h3 id="55-方法装饰器">55. 方法装饰器？（★★）</h3>
+<p><strong>答案：</strong> <code>function log(target: any, key: string, descriptor: PropertyDescriptor) {}</code></p>
+<h3 id="56-属性装饰器">56. 属性装饰器？（★★）</h3>
+<p><strong>答案：</strong> <code>function readonly(target: any, key: string) {}</code></p>
+<h3 id="57-参数装饰器">57. 参数装饰器？（★★）</h3>
+<p><strong>答案：</strong> 用于依赖注入等。</p>
+<h3 id="58-抽象类abstract-class">58. 抽象类（Abstract Class）？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">abstract</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> Animal</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">abstract</span><span style="color:#B392F0"> move</span><span style="color:#E1E4E8">(); }</span></span></code></pre>
+<h3 id="59-访问修饰符publicprivateprotected">59. 访问修饰符（public/private/protected）？（★★）</h3>
+<p><strong>答案：</strong> <code>private</code> 仅类内；<code>protected</code> 子类可见。</p>
+<h3 id="60-静态成员static">60. 静态成员（static）？（★★）</h3>
+<p><strong>答案：</strong> <code>static count = 0;</code></p>
+<hr>
+<h2 id="第三部分高级题61-80">第三部分：高级题（61-80）</h2>
+<h3 id="61-deepreadonly-实现">61. DeepReadonly<t> 实现？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> DeepReadonly</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  readonly</span><span style="color:#E1E4E8"> [</span><span style="color:#B392F0">P</span><span style="color:#F97583"> in</span><span style="color:#F97583"> keyof</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">]</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">extends</span><span style="color:#79B8FF"> object</span><span style="color:#F97583"> ?</span><span style="color:#B392F0"> DeepReadonly</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">]> </span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h3 id="62-deeppartial">62. DeepPartial<t>？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> DeepPartial</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  [</span><span style="color:#B392F0">P</span><span style="color:#F97583"> in</span><span style="color:#F97583"> keyof</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">]</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">extends</span><span style="color:#79B8FF"> object</span><span style="color:#F97583"> ?</span><span style="color:#B392F0"> DeepPartial</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">]> </span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h3 id="63-pickbytypet-u">63. PickByType&#x3C;T, U>？（★★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> PickByType</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">U</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  [</span><span style="color:#B392F0">P</span><span style="color:#F97583"> in</span><span style="color:#F97583"> keyof</span><span style="color:#B392F0"> T</span><span style="color:#F97583"> as</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">extends</span><span style="color:#B392F0"> U</span><span style="color:#F97583"> ?</span><span style="color:#B392F0"> P</span><span style="color:#F97583"> :</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">]</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h3 id="64-tupletounion">64. TupleToUnion<t>？（★★★）</t></h3>
+<p><strong>答案：</strong> <code>type TupleToUnion&#x3C;T extends any[]> = T[number];</code></p>
+<h3 id="65-uniontointersection">65. UnionToIntersection<t>？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> UnionToIntersection</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">U</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span></span>
+<span class="line"><span style="color:#E1E4E8">  (</span><span style="color:#B392F0">U</span><span style="color:#F97583"> extends</span><span style="color:#79B8FF"> any</span><span style="color:#F97583"> ?</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">k</span><span style="color:#F97583">:</span><span style="color:#B392F0"> U</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> void</span><span style="color:#F97583"> :</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">extends</span></span>
+<span class="line"><span style="color:#E1E4E8">  (</span><span style="color:#FFAB70">k</span><span style="color:#F97583">:</span><span style="color:#F97583"> infer</span><span style="color:#B392F0"> I</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> void</span><span style="color:#F97583"> ?</span><span style="color:#B392F0"> I</span><span style="color:#F97583"> :</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="66-last元组最后一个">66. Last<t>（元组最后一个）？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Last</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#F97583"> extends</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">[]> </span><span style="color:#F97583">=</span><span style="color:#B392F0"> T</span><span style="color:#F97583"> extends</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">...infer</span><span style="color:#B392F0"> _</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">infer</span><span style="color:#B392F0"> L</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">?</span><span style="color:#B392F0"> L</span><span style="color:#F97583"> :</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="67-promiseall">67. PromiseAll<t>？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> PromiseAll</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#F97583"> extends</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">[]> </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> { [</span><span style="color:#B392F0">P</span><span style="color:#F97583"> in</span><span style="color:#F97583"> keyof</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">]</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">P</span><span style="color:#E1E4E8">]> }[</span><span style="color:#79B8FF">number</span><span style="color:#E1E4E8">];</span></span></code></pre>
+<h3 id="68-typeof-keyof-typeof">68. Typeof keyof typeof？（★★★）</h3>
+<p><strong>答案：</strong> 嵌套推断，如 <code>type Keys = keyof typeof obj;</code> 获取对象键。</p>
+<h3 id="69-模板字面量类型">69. 模板字面量类型？（★★★）</h3>
+<p><strong>答案：</strong> <code>${string} | "file"</code> 动态字符串类型。</p>
+<h3 id="70-品牌类型branded-type">70. 品牌类型（Branded Type）？（★★★）</h3>
+<p><strong>答案：</strong> <code>type UserId = string &#x26; { __brand: "UserId" };</code> 增强类型安全。</p>
+<h3 id="71-方差covariancecontravariance">71. 方差（Covariance/Contravariance）？（★★★）</h3>
+<p><strong>答案：</strong> 协变：子类型可赋给父类型；逆变：函数参数逆向。</p>
+<h3 id="72-高级类型保护">72. 高级类型保护？（★★★）</h3>
+<p><strong>答案：</strong> <code>in</code> operator、<code>instanceof</code> 等。</p>
+<h3 id="73-模块增广module-augmentation">73. 模块增广（Module Augmentation）？（★★★）</h3>
+<p><strong>答案：</strong> 扩展第三方库接口，如 Express 的 Request。</p>
+<h3 id="74-命名空间合并">74. 命名空间合并？（★★★）</h3>
+<p><strong>答案：</strong> 多个 interface 同名自动合并。</p>
+<h3 id="75-条件类型分布式激活">75. 条件类型分布式激活？（★★★）</h3>
+<p><strong>答案：</strong> 仅 naked type 时激活，如 <code>T extends any ? ...</code></p>
+<h3 id="76-infer-在条件中的限制">76. infer 在条件中的限制？（★★★）</h3>
+<p><strong>答案：</strong> 仅在 true 分支可用。</p>
+<h3 id="77-递归条件类型">77. 递归条件类型？（★★★）</h3>
+<p><strong>答案：</strong> 如 <code>DeepReadonly</code> 的嵌套递归。</p>
+<h3 id="78-高级泛型higher-kinded-types">78. 高级泛型：Higher-Kinded Types？（★★★）</h3>
+<p><strong>答案：</strong> TS 无原生支持，但可模拟。</p>
+<h3 id="79-类型挑战length">79. 类型挑战：Length<t>？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Length</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#F97583"> extends</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">[]> </span><span style="color:#F97583">=</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">[</span><span style="color:#9ECBFF">'length'</span><span style="color:#E1E4E8">];</span></span></code></pre>
+<h3 id="80-类型挑战flatten">80. 类型挑战：Flatten<t>？（★★★）</t></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> Flatten</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#F97583"> extends</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">[]> </span><span style="color:#F97583">=</span><span style="color:#B392F0"> T</span><span style="color:#F97583"> extends</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">infer</span><span style="color:#B392F0"> H</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">...infer</span><span style="color:#B392F0"> R</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">?</span><span style="color:#B392F0"> H</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> Flatten</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">R</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">:</span><span style="color:#79B8FF"> never</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="第四部分reactnextjs-实战题81-90">第四部分：React/Next.js 实战题（81-90）</h2>
+<h3 id="81-react-fc">81. React FC<props>？（★★）</props></h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#B392F0"> Comp</span><span style="color:#F97583">:</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">FC</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Props</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> ({ </span><span style="color:#FFAB70">prop</span><span style="color:#E1E4E8"> }) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#B392F0">div</span><span style="color:#E1E4E8">>{prop}</span><span style="color:#F97583">&#x3C;/</span><span style="color:#E1E4E8">div</span><span style="color:#F97583">></span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="82-usestate-类型">82. useState 类型？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">state</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setState</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">>(</span><span style="color:#9ECBFF">""</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="83-usereducer-action-类型">83. useReducer Action 类型？（★★）</h3>
+<p><strong>答案：</strong> 联合类型，如 <code>type Action = { type: 'INCR' } | { type: 'DECR' };</code></p>
+<h3 id="84-useref-类型">84. useRef 类型？（★★）</h3>
+<p><strong>答案：</strong> <code>useRef&#x3C;HTMLInputElement>(null);</code></p>
+<h3 id="85-props-扩展">85. Props 扩展？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Props</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">HTMLAttributes</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">HTMLDivElement</span><span style="color:#E1E4E8">> { </span><span style="color:#FFAB70">custom</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">; }</span></span></code></pre>
+<h3 id="86-nextjs-getstaticprops-类型">86. Next.js getStaticProps 类型？（★★）</h3>
+<p><strong>答案：</strong> <code>GetStaticProps&#x3C;{ data: User[] }></code></p>
+<h3 id="87-reactmemo-类型">87. React.memo 类型？（★★）</h3>
+<p><strong>答案：</strong> <code>const MemoComp = React.memo(Comp);</code></p>
+<h3 id="88-useeffect-依赖类型">88. useEffect 依赖类型？（★★）</h3>
+<p><strong>答案：</strong> <code>useEffect(() => {}, [dep: string]);</code></p>
+<h3 id="89-hoc-类型">89. HOC 类型？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">Comp</span><span style="color:#F97583">:</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">ComponentType</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Props</span><span style="color:#E1E4E8">>) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> React.ComponentType</span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">NewProps</span><span style="color:#F97583">></span></span></code></pre>
+<h3 id="90-context-类型">90. Context 类型？（★★）</h3>
+<p><strong>答案：</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> MyContext</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> createContext</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Value</span><span style="color:#F97583"> |</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">>(</span><span style="color:#79B8FF">null</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<hr>
+<h2 id="第五部分开放题91-100">第五部分：开放题（91-100）</h2>
+<h3 id="91-ts-如何提升代码质量">91. TS 如何提升代码质量？（★★）</h3>
+<p><strong>答案：</strong> 静态检查、IDE 支持、重构安全，减少 bug 70%+。</p>
+<h3 id="92-ts-在大型项目中的优势">92. TS 在大型项目中的优势？（★★）</h3>
+<p><strong>答案：</strong> 类型推断、模块化、可维护性强，适合团队协作。</p>
+<h3 id="93-ts-与-flow-的区别">93. TS 与 Flow 的区别？（★★）</h3>
+<p><strong>答案：</strong> TS 更强大、生态更好；Flow 更轻量但 Facebook 维护弱。</p>
+<h3 id="94-ts-性能开销">94. TS 性能开销？（★★）</h3>
+<p><strong>答案：</strong> 编译时开销，运行时零开销（转 JS）。</p>
+<h3 id="95-ts-配置最佳实践">95. TS 配置最佳实践？（★★）</h3>
+<p><strong>答案：</strong> <code>strict: true</code>, <code>target: ES2022</code>, <code>module: ESNext</code>。</p>
+<h3 id="96-ts-在-nodejs-中的应用">96. TS 在 Node.js 中的应用？（★★）</h3>
+<p><strong>答案：</strong> 类型化 API、Express 路由等，提升后端可靠性。</p>
+<h3 id="97-ts-泛型的最佳实践">97. TS 泛型的最佳实践？（★★）</h3>
+<p><strong>答案：</strong> 用约束避免过度泛化，优先具体类型。</p>
+<h3 id="98-ts-错误处理">98. TS 错误处理？（★★）</h3>
+<p><strong>答案：</strong> <code>never</code> 类型、try-catch 类型缩小。</p>
+<h3 id="99-ts-未来趋势2025">99. TS 未来趋势（2025）？（★★）</h3>
+<p><strong>答案：</strong> 更强类型编程、AI 辅助类型生成、与 WASM 集成。</p>
+<h3 id="100-你如何迁移-js-到-ts">100. 你如何迁移 JS 到 TS？（★★）</h3>
+<p><strong>答案：</strong> 逐步：<code>allowJs: true</code> → 类型注解 → <code>strict</code> 模式 → 重构。</p>
